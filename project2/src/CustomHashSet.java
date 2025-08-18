@@ -1,14 +1,13 @@
-
-public final class CustomHashSet<T> {
+public class CustomHashSet<E> {
     private static final int DEFAULT_CAPACITY = 16;
-    private final Node<T>[] buckets;
+    private final Node<E>[] buckets;
     private int size;
 
-    private static final class Node<T> {
-        final T key;
-        final Node<T> next;
+    private static final class Node<E> {
+        final E key;
+        final Node<E> next;
 
-        Node(final T key, final Node<T> next) {
+        Node(final E key, final Node<E> next) {
             this.key = key;
             this.next = next;
         }
@@ -16,17 +15,17 @@ public final class CustomHashSet<T> {
 
     @SuppressWarnings("unchecked")
     public CustomHashSet() {
-        this.buckets = (Node<T>[]) new Node[DEFAULT_CAPACITY];
+        this.buckets = (Node<E>[]) new Node[DEFAULT_CAPACITY];
         this.size = 0;
     }
 
-    public boolean add(final T key) {
+    public boolean add(final E key) {
         if (key == null) {
             throw new NullPointerException("Key cannot be null");
         }
 
         final int index = getIndex(key);
-        Node<T> current = buckets[index];
+        Node<E> current = buckets[index];
 
         while (current != null) {
             if (current.key.equals(key)) {
@@ -40,14 +39,14 @@ public final class CustomHashSet<T> {
         return true;
     }
 
-    public boolean remove(final T key) {
+    public boolean remove(final E key) {
         if (key == null) {
             throw new NullPointerException("Key cannot be null");
         }
 
         final int index = getIndex(key);
-        Node<T> current = buckets[index];
-        Node<T> prev = null;
+        Node<E> current = buckets[index];
+        Node<E> prev = null;
 
         while (current != null) {
             if (current.key.equals(key)) {
@@ -65,7 +64,7 @@ public final class CustomHashSet<T> {
         return false;
     }
 
-    private int getIndex(final T key) {
+    private int getIndex(final E key) {
         return Math.abs(key.hashCode()) % buckets.length;
     }
 
@@ -75,8 +74,8 @@ public final class CustomHashSet<T> {
         sb.append("[");
         boolean first = true;
 
-        for (final Node<T> node : buckets) {
-            Node<T> current = node;
+        for (final Node<E> node : buckets) {
+            Node<E> current = node;
             while (current != null) {
                 if (!first) {
                     sb.append(", ");

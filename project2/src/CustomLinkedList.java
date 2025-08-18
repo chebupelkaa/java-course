@@ -1,14 +1,14 @@
-public class CustomLinkedList<T> {
-    private Node<T> head;
-    private Node<T> tail;
+public class CustomLinkedList<E> {
+    private Node<E> head;
+    private Node<E> tail;
     private int size;
 
-    private static class Node<T> {
-        final T data;
-        Node<T> next;
-        Node<T> prev;
+    private static class Node<E> {
+        final E data;
+        Node<E> next;
+        Node<E> prev;
 
-        Node(final T data) {
+        Node(final E data) {
             this.data = data;
             this.next = null;
             this.prev = null;
@@ -21,8 +21,8 @@ public class CustomLinkedList<T> {
         this.size = 0;
     }
 
-    public void add(final T element) {
-        final Node<T> newNode = new Node<>(element);
+    public void add(final E element) {
+        final Node<E> newNode = new Node<>(element);
 
         if (head == null) {
             head = newNode;
@@ -35,7 +35,7 @@ public class CustomLinkedList<T> {
         size++;
     }
 
-    public T get(final int index) {
+    public E get(final int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
@@ -43,13 +43,13 @@ public class CustomLinkedList<T> {
         return getNode(index).data;
     }
 
-    public T remove(final int index) {
+    public E remove(final int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
 
-        final Node<T> nodeToRemove = getNode(index);
-        final T removedData = nodeToRemove.data;
+        final Node<E> nodeToRemove = getNode(index);
+        final E removedData = nodeToRemove.data;
 
         if (size == 1) {
             head = null;
@@ -61,8 +61,8 @@ public class CustomLinkedList<T> {
             tail = tail.prev;
             tail.next = null;
         } else {
-            final Node<T> previous = nodeToRemove.prev;
-            final Node<T> next = nodeToRemove.next;
+            final Node<E> previous = nodeToRemove.prev;
+            final Node<E> next = nodeToRemove.next;
             previous.next = next;
             next.prev = previous;
         }
@@ -71,8 +71,8 @@ public class CustomLinkedList<T> {
         return removedData;
     }
 
-    public boolean remove(final T element) {
-        Node<T> current = head;
+    public boolean remove(final E element) {
+        Node<E> current = head;
         int index = 0;
 
         while (current != null) {
@@ -87,17 +87,17 @@ public class CustomLinkedList<T> {
         return false;
     }
 
-    public void addAll(final T[] array) {
+    public void addAll(final E[] array) {
         if (array == null) {
             return;
         }
-        for (final T element : array) {
+        for (final E element : array) {
             add(element);
         }
     }
 
-    private Node<T> getNode(final int index) {
-        Node<T> current;
+    private Node<E> getNode(final int index) {
+        Node<E> current;
 
         if (index < size / 2) {
             current = head;
@@ -125,7 +125,7 @@ public class CustomLinkedList<T> {
         }
 
         final StringBuilder sb = new StringBuilder("[");
-        Node<T> current = head;
+        Node<E> current = head;
 
         while (current != null) {
             sb.append(current.data);
