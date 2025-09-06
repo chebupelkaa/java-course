@@ -2,12 +2,14 @@ public class Deadlock {
     public static void main(String[] args) {
 
         final Object lock1 = new Object() {
+            @Override
             public String toString() {
                 return "Lock1";
             }
         };
 
         final Object lock2 = new Object() {
+            @Override
             public String toString() {
                 return "Lock2";
             }
